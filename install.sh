@@ -53,8 +53,6 @@ for filename in $(ls "$CURRENT_DIR"); do
   linkfile $symbolic $original
 done
 
-mkdir -p ~/.vim/tmp ~/.vim/undo
-
 for filename in $(ls "$HOME/.localrcs"); do
   original="$HOME/.localrcs/$filename"
   symbolic="$HOME/.$(printf $filename | cut -d'.' -f 2)"
