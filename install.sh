@@ -32,6 +32,10 @@ linkfile() {
   fi
 }
 
+if [[ ! -e ~/.sh_pre ]]; then
+  echo "export SH_USERNAME=\"$(whoami)\"" > ~/.sh_pre
+fi
+
 printf "Initializing and updating git submodules..."
 if (cd "$CURRENT_DIR" && git submodule sync && git submodule update --init --recursive); then
   printf "\r$COLOR_GREEN"

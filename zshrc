@@ -1,4 +1,4 @@
-. ~/.sh_common/pre_config
+[[ -f ~/.sh_pre ]] && . ~/.sh_pre
 . ~/.zsh/paths
 . ~/.zsh/constants
 . ~/.zsh/config
