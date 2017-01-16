@@ -46,3 +46,5 @@ if [ -x /usr/bin/dircolors ]; then
   alias dir='dir --color=auto'
   alias vdir='vdir --color=auto'
 fi
+
+alias cb2='cd ~/workspace/casebook2'
