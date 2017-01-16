@@ -2,6 +2,8 @@ local g="$(git rev-parse --git-dir 2>/dev/null)"
 if [ -n "$g" ]; then
   local r
   local b
+  local pair
+
   if [ -d "$g/../.dotest" ]
   then
     if test -f "$g/../.dotest/rebasing"
@@ -39,10 +41,9 @@ if [ -n "$g" ]; then
       fi
     fi
   fi
+
+  pair="$(git config user.initials)"
+  [[ "$pair" ]] && pair="<$pair>"
  
-  if [ -n "$1" ]; then
-    printf "$1" "${b##refs/heads/}$r"
-  else
-    printf "[%s]" "${b##refs/heads/}$r"
-  fi
+  printf "[%s%s]%s" "${b##refs/heads/}" "$r" "$pair"
 fi
