@@ -10,12 +10,12 @@ local color_prompt='%{%F{red}%}'
 local color_user_host='%{%F{magenta}%}'
 local maxpathlen=40  # max length of curpath (in characters)
 
-[[ $USERNAME != $SH_USERNAME ]] && username='%n'  # Don't display user if it's my own
-[[ -n $SSH_CONNECTION ]] && hostname=$hostname'@%m'  # If running locally, we probably know what machine it is
+[[ $USERNAME != $SH_USERNAME ]] && local username='%n'  # Don't display user if it's my own
+[[ -n $SSH_CONNECTION ]] && local hostname=$hostname'@%m'  # If running locally, we probably know what machine it is
                                                      #   always display "@" so host is not mistaken for username
-([ -n "$username" ] || [ -n "$hostname" ]) && colon=':'  # Don't separate if nothing to separate
-[[ $HOME != $(pwd) ]] && curpath=$(shorten_path "$(pwd)" $maxpathlen)  # Don't display the path if we're home
-git=$(git_info_for_prompt)  # Display information about current git repo
+([ -n "$username" ] || [ -n "$hostname" ]) && local colon=':'  # Don't separate if nothing to separate
+[[ $HOME != $(pwd) ]] && local curpath=$(shorten_path "$(pwd)" $maxpathlen)  # Don't display the path if we're home
+local git=$(git_info_for_prompt)  # Display information about current git repo
 
 if [ -z "$1" ]; then
   printf "%s" $color_user_host$username$hostname $color_none$colon $color_dir$curpath $color_git$git $color_prompt'%#'$color_none' '
