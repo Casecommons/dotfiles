@@ -15,10 +15,14 @@ local maxpathlen=40  # max length of curpath (in characters)
                                                      #   always display "@" so host is not mistaken for username
 ([ -n "$username" ] || [ -n "$hostname" ]) && local colon=':'  # Don't separate if nothing to separate
 [[ $HOME != $(pwd) ]] && local curpath=$(shorten_path "$(pwd)" $maxpathlen)  # Don't display the path if we're home
-local git=$(git_info_for_prompt)  # Display information about current git repo
+__git_ps1 &>/dev/null || true  # Force autoloading of function
+local git=$(__git_ps1 "[%s]")  # Display information about current git repo
+
+local pair="$(git config user.initials)"
+[[ "$pair" ]] && pair="<$pair>"
 
 if [ -z "$1" ]; then
-  printf "%s" $color_user_host$username$hostname $color_none$colon $color_dir$curpath $color_git$git $color_prompt'%#'$color_none' '
+  printf "%s" $color_user_host$username$hostname $color_none$colon $color_dir$curpath $color_git$git$pair $color_prompt'%#'$color_none' '
 else
   print -Pn "\e]0;" $username$hostname$colon "%~\a"
 fi
