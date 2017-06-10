@@ -34,6 +34,9 @@ Pry.config.exception_handler = proc do |output, exception, _|
   end
 end
 
+Pry.commands.alias_command 'c', 'continue'
+Pry.commands.alias_command 's', 'step'
+Pry.commands.alias_command 'n', 'next'
 Pry.config.theme = 'solarized'
 
 load '~/.rbrc'
