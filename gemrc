@@ -8,3 +8,4 @@
 :verbose: true
 install: --env-shebang
 update: --env-shebang
+gem: --no-document
