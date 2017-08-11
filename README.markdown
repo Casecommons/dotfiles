@@ -10,7 +10,7 @@ Configuration exists to target
 - OSs: Known to run on OS X (+ Homebrew), FreeBSD, & Ubuntu Linux
 - Shell: Primarily Zsh, but with Bash configuration
 - Languages: Primarily targeting for Ruby development
-- Editor: Vim (see [vim-config](https://github.com/Casecommons/vim-config)
+- Editor: Vim (see [vim-config](https://github.com/Casecommons/vim-config))
 - VCS: Git
 
 ## Customizing
