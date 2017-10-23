@@ -38,3 +38,9 @@ export   COLOR_LIGHT_GRAY='\033[0;37m'
 if type brew &>/dev/null; then
   export HOMEBREW_CASK_OPTS='--appdir=/Applications'
 fi
+
+if type docker-machine &>/dev/null; then
+  if [[ "$(docker-machine status)" == 'Running' ]]; then
+    eval $(docker-machine env)
+  fi
+fi
