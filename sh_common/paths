@@ -20,3 +20,5 @@ fi
 if [[ -d /usr/local/opt/python/libexec/bin ]]; then
   export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 fi
+
+[[ -d "$HOME/miniconda2/bin" ]] && export PATH="$HOME/miniconda2/bin:$PATH"
