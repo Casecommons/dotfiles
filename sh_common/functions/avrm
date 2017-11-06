@@ -1,0 +1,4 @@
+function avrm() {
+  local profile=$1
+  aws-vault remove $profile
+}

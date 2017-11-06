@@ -1,0 +1,4 @@
+function avadd() {
+  local profile=$1
+  aws-vault add --add-config $profile
+}

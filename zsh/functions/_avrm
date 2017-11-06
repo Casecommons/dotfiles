@@ -1,0 +1,2 @@
+#compdef avrm
+compadd `aws-profiles`
