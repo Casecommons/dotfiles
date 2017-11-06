@@ -1,0 +1,4 @@
+function avlogin() {
+  local profile=$1
+  aws-vault login --federation-token-ttl=2h $profile
+}

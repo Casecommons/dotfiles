@@ -1,0 +1,6 @@
+function avexec() {
+  local profile=$1
+  shift
+  local command=$*
+  aws-vault exec --no-session $profile $command
+}
