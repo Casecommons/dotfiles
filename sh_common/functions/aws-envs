@@ -1,0 +1,3 @@
+function aws-envs() {
+aws ec2 describe-tags --filters "Name=key,Values=Env" | grep Value | sort | uniq| tr -d '"' | awk {'print $2'}
+}

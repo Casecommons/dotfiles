@@ -1,0 +1,2 @@
+#compdef foobar
+compadd foo bar blah

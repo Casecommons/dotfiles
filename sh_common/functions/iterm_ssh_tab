@@ -1,0 +1,16 @@
+function iterm_ssh_tab() {
+session_name=$1
+ssh_string=$2
+
+osascript <<END
+tell application "iTerm2"
+  tell current window
+    create tab with default profile command "$ssh_string"
+    #set name to session_name
+  end tell
+  tell current session of current window
+    set name to "$session_name"
+  end tell
+end tell
+END
+}

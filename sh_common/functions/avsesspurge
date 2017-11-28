@@ -1,0 +1,5 @@
+function avsesspurge() {
+  for profile in aws-profiles; do
+    aws-vault remove -s $profile
+  done
+}

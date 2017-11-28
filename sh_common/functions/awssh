@@ -1,0 +1,36 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+if [ $# -eq 0 ]
+  then
+    echo "No arguments supplied, pass at least an environment"
+    exit
+fi
+
+ENV=$1
+LAYER=$2
+
+if [[ "$ENV" = "all" && $LAYER ]]
+then
+  echo "All machines with $LAYER..."
+  instances="$(aws ec2 describe-instances --filters "Name=tag:Layer,Values=$LAYER" "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[InstanceId]' --output text)"
+elif [[ $ENV != "all" && $LAYER ]]
+then
+  echo "All machines in $ENV with $LAYER"
+  instances="$(aws ec2 describe-instances --filters "Name=tag:Env,Values=$ENV" "Name=tag:Layer,Values=$LAYER" "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[InstanceId]' --output text)"
+else
+  echo "All machines in $ENV"
+  instances="$(aws ec2 describe-instances --filters "Name=tag:Env,Values=$ENV" "Name=instance-state-name,Values=running" --query 'Reservations[].Instances[].[InstanceId]' --output text)"
+fi
+
+while read -r instance; do
+  instance_name="$(aws ec2 describe-instances --instance-ids $instance --query 'Reservations[].Instances[].Tags[?Key==`Name`].Value[]' --output=text)"
+  instance_ip="$(aws ec2 describe-instances --instance-ids $instance --query "Reservations[*].Instances[*].PrivateIpAddress" --output=text)"
+  instance_last_octet=`echo $instance_ip | cut -d . -f 4`
+  ssh_string="ssh -A $instance_ip"
+  session_name="${instance_name}.${instance_last_octet}"
+  echo $instance $instance_name $instance_ip
+  iterm_ssh_tab $session_name "$ssh_string"
+  sleep 2
+done <<< "$instances"
