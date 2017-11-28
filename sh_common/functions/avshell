@@ -1,0 +1,4 @@
+function avshell() {
+  local profile=$1
+  aws-vault exec --no-session --session-ttl=4h $profile 
+}
