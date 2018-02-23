@@ -8,4 +8,4 @@ homebrew_owner() {
 
 [[ -z "$HOMEBREW_PREFIX" ]] && HOMEBREW_PREFIX=/usr/local
 [[ -e "$HOMEBREW_PREFIX/bin/brew" ]] || "$HOMEBREW_PREFIX/bin/brew"
-exec sudo -Hu "#$(homebrew_owner)" "$HOMEBREW_PREFIX/bin/brew" $@
+exec sudo -Hu "#$(homebrew_owner)" "$HOMEBREW_PREFIX/bin/brew" "$@"
