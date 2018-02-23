@@ -7,6 +7,7 @@ set -e
 homebrew_owner="$(stat -f %u /usr/local/Homebrew)"
 
 if [[ "$homebrew_owner" != "$(id -u)" ]]; then
+  echo "Using sudo to become homebrew owner..." >&2
   exec sudo -Hu "#$homebrew_owner" "$HOMEBREW_PREFIX/bin/brew" "$@"
 else
   exec "$HOMEBREW_PREFIX/bin/brew" "$@"
