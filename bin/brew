@@ -5,9 +5,31 @@ set -e
 [[ -z "$HOMEBREW_PREFIX" ]] && HOMEBREW_PREFIX=/usr/local
 [[ -e "$HOMEBREW_PREFIX/bin/brew" ]] || "$HOMEBREW_PREFIX/bin/brew"
 homebrew_owner="$(stat -f %u /usr/local/Homebrew)"
+read_only_subcommands="
+cat
+deps
+desc
+home
+info
+list
+outdated
+search
+uses
+"
 
-if [[ "$homebrew_owner" != "$(id -u)" ]]; then
-  echo "Using sudo to become homebrew owner..." >&2
+command_is_read_only() {
+  local command="$1"
+  echo "$read_only_subcommands" | grep --quiet "$command"
+}
+
+homebrew_owner_is_current_user() {
+  [[ "$homebrew_owner" == "$(id -u)" ]]
+}
+
+if ! command_is_read_only "$1" && ! homebrew_owner_is_current_user; then
+  if [[ -t 1 ]]; then
+    echo "Using sudo to become homebrew owner..." >&2
+  fi
   exec sudo -Hu "#$homebrew_owner" "$HOMEBREW_PREFIX/bin/brew" "$@"
 else
   exec "$HOMEBREW_PREFIX/bin/brew" "$@"
