@@ -6,4 +6,5 @@
 .git
 .hg
 .svn
+.vscode
 tags
