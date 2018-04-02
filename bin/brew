@@ -9,9 +9,11 @@ read_only_subcommands="
 cat
 deps
 desc
+doctor
 home
 info
 list
+missing
 outdated
 search
 uses
