@@ -67,7 +67,7 @@ ruby_version_detector = Class.new do
 
   define_method(:manager) { version_managers.detect(&:match?) }
   define_method(:bypassed?) do
-    manager.version.match(/\d+\.\d+\.\d+(-p\d+)?/).to_s != real_version
+    manager.version.match(/\d+\.\d+\.\d+(-?p\d+)?/).to_s != real_version
   end
 end
 
@@ -82,9 +82,11 @@ def print_ruby_version version_detector
 
   if version =~ /system/
     system_raw_version = `$(whereis ruby) --version`
-    system_major = system_raw_version.match(/ruby (\d\.\d\.\d)/).captures.first
-    system_patch = system_raw_version.match(/patchlevel (\d+)/).captures.first
-    version = version.sub(/system/, "system (#{system_major}-p#{system_patch})")
+    system_major = system_raw_version.match(/ruby (\d+\.\d+\.\d+)/).captures.first
+    system_patch = system_raw_version.match(/patchlevel (\d+)/)
+    system_patch &&= system_patch.captures.first
+    system_combined = system_patch ? "system (#{system_major}-p#{system_patch})" : "system (#{system_major})"
+    version = version.sub(/system/, system_combined)
   end
 
   if version_detector.bypassed?
