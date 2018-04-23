@@ -24,6 +24,9 @@
 [log]
 	decorate = true
 [pager]
+	diff = diff-highlight | $PAGER
+	log = diff-highlight | $PAGER
+	show = diff-highlight | $PAGER
 	unpulled = false
 	unpushed = false
 [pull]
@@ -32,3 +35,6 @@
 	default = simple
 [include]
 	path = .gitconfig_local
+[color "diff-highlight"]
+	oldHighlight = "red black"
+	newHighlight = "green black"
