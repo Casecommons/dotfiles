@@ -17,11 +17,16 @@
 	unpushed = log @{u}..HEAD
 [color]
 	ui = auto
+[color "diff-highlight"]
+	oldHighlight = "black red"
+	newHighlight = "black green"
 [core]
 	autocrlf = input
 	excludesfile = ~/.gitignore
 [fetch]
 	prune = true
+[interactive]
+	diffFilter = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight
 [log]
 	decorate = true
 [pager]
@@ -36,8 +41,5 @@
 	default = simple
 [include]
 	path = .gitconfig_local
-[color "diff-highlight"]
-	oldHighlight = "red black"
-	newHighlight = "green black"
 [rebase]
 	autosquash = true
