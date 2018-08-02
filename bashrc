@@ -11,3 +11,5 @@ fi
 
 [ -f ~/.sh_common_local ] && . ~/.sh_common_local
 [ -f ~/.bashrc_local ] && . ~/.bashrc_local
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
